@@ -27,3 +27,6 @@ build/
 # Test reports
 coverage/
 .vercel
+
+# Local dataset folder (not tracked in Git)
+airbnb_data_code/

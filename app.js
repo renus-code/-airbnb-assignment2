@@ -4,6 +4,7 @@ const path = require("path"); // Node.js module for handling and transforming fi
 const { engine } = require("express-handlebars"); // Import the Handlebars template engine integration for Express
 const fs = require("fs"); // Node.js module for file system operations
 const { body, validationResult } = require("express-validator"); // Import functions for validating and sanitizing user input
+const { get } = require("http");
 
 // Initialize the Express application
 const app = express();
@@ -18,10 +19,37 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true })); // Load and parse the Airbnb JSON data file
 
+/*
 let myData = fs.readFileSync(
   path.join(__dirname, "airbnb_data_code", "airbnb_with_photos.json")
 );
 let airbnb_json = JSON.parse(myData);
+*/
+
+// ---------------------------- LOAD JSON DATA FROM FILEBASE ----------------------------
+let airbnb_json = [];
+
+async function loadData() {
+  const url =
+    "https://thoughtless-amaranth-scallop.myfilebase.com/ipfs/QmWuoZ7UW4aBCkUEykCQ8i6G7JFzLbE3S85f2VvYTjxi7y";
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+
+    airbnb_json = data;
+    console.log(`Loaded ${data.length} records from Filebase`);
+  } catch (err) {
+    console.error("Failed to fetch data from Filebase:", err.message);
+    airbnb_json = [];
+  }
+}
+
+// Load data once when the app starts
+loadData().then(() => {
+  console.log("Airbnb data loaded successfully.");
+});
 
 // ---------------------------- VIEW ENGINE SETUP ----------------------------
 
