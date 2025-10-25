@@ -1,0 +1,13 @@
+<h2>{{title}}</h2>
+
+{{#if record}}
+  <h3>{{record.NAME}}</h3>
+  <p><strong>Host Name:</strong> {{record.[host name]}}</p>
+  <p><strong>Property Type:</strong> {{record.property_type}}</p>
+  <p><strong>Country:</strong> {{record.country}}</p>
+  <p><strong>Location:</strong> {{record.neighbourhood}}</p>
+  <p><strong>Price:</strong> {{record.price}}</p>
+  <img src="{{record.thumbnail}}" alt="{{record.NAME}}" width="300" />
+{{else}}
+  <p>{{message}}</p>
+{{/if}}

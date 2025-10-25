@@ -1,0 +1,27 @@
+<h2>{{title}}</h2>
+
+{{#if matchedProperties}}
+  <p style="text-align: center;">Found {{matchedProperties.length}} properties matching "{{query}}"</p>
+
+  {{#each matchedProperties}}
+    <div style="border:1px solid #ccc; border-radius:8px; margin:10px auto; padding:10px; width:90%; background:#fff;">
+      <h3>{{NAME}}</h3>
+      <p><strong>ID:</strong> {{id}}</p>
+      <p><strong>Country:</strong> {{country}}</p>
+      <p><strong>Room Type:</strong> {{[room type]}}</p>
+
+      {{#if thumbnail}}
+        <img src="{{thumbnail}}" width="150" height="100" style="border-radius:6px;" />
+      {{else}}
+        <p>No image available</p>
+      {{/if}}
+    </div>
+  {{/each}}
+
+  <p style="text-align:center;">
+    <a href="/search/name">Search Another Property</a>
+  </p>
+{{else}}
+  <p style="color:red; text-align:center;">{{message}}</p>
+  <p style="text-align:center;"><a href="/search/name">Try Again</a></p>
+{{/if}}

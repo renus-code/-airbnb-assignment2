@@ -1,0 +1,15 @@
+<h2>{{title}}</h2>
+
+<form action="/search/invoiceID" method="POST">
+  <label for="property_id">Enter Property ID:</label>
+  <input type="text" id="property_id" name="property_id" />
+  <button type="submit">Search</button>
+</form>
+
+{{#if errors}}
+  <ul style="color: red;">
+    {{#each errors}}
+      <li>{{msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}

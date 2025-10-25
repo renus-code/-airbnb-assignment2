@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+
+    {{!-- Include header partial --}}
+    {{> header}}
+
+    {{!-- Main dynamic content --}}
+    <main>
+      {{{body}}}
+    </main>
+
+    {{!-- Include footer partial --}}
+    {{> footer}}
+
+  </body>
+</html>

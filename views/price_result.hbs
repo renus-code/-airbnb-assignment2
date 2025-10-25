@@ -1,0 +1,37 @@
+<h2>{{title}}</h2>
+
+{{#if listings}}
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Host Name</th>
+      <th>Neighbourhood</th>
+      <th>Price</th>
+      <th>Service Fee</th>
+      <th>Country</th>
+      <th>Image</th>
+    </tr>
+
+    {{#each listings}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{NAME}}</td>
+        <td>{{[host name]}}</td>
+        <td>{{neighbourhood}}</td>
+        <td>{{price}}</td>
+        <td>{{[service fee]}}</td>
+        <td>{{country}}</td>
+        {{#if images.[0]}}
+          <td><img src="{{images.[0]}}" width="120" height="90" /></td>
+        {{else}}
+          <td>No Image</td>
+        {{/if}}
+      </tr>
+    {{/each}}
+  </table>
+{{else}}
+  <p>{{message}}</p>
+{{/if}}
+
+<a href="/viewData/price">Search Again</a>

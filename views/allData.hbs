@@ -1,0 +1,30 @@
+<h2>{{title}}</h2>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Neighbourhood</th>
+    <th>Price</th>
+    <th>property_type</th>
+    <th>Image</th>
+  </tr>
+
+  {{#each listings}}
+    <tr>
+      <td>{{id}}</td>
+      <td>{{NAME}}</td>
+      <td>{{neighbourhood}}</td>
+      <td>${{price}}</td>
+      <td>{{property_type}}</td>
+      <td>
+        {{!-- Display only the first image from the images array --}}
+        {{#if images.[0]}}
+          <img src="{{images.[0]}}" alt="{{NAME}}" width="120" height="90" style="border-radius: 6px;" />
+        {{else}}
+          <span>No Image</span>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

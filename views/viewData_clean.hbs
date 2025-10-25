@@ -1,0 +1,63 @@
+<h2>{{title}}</h2>
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Host Name</th>
+    <th>Neighbourhood</th>
+    <th>Property Type</th>
+    <th>Room Type</th>
+    <th>Price</th>
+    <th>Service Fee</th>
+    <th>Country</th>
+    <th>Availability</th>
+    <th>Image</th>
+  </tr>
+
+
+{{#each listings}}
+  <tr style="{{highlightIfEmpty [service fee]}}">
+    <td>{{id}}</td>
+    <td>{{NAME}}</td>
+    <td>{{[host name]}}</td>
+    <td>{{neighbourhood}}</td>
+    <td>{{property_type}}</td>
+    <td>{{[room type]}}</td>
+    <td>{{price}}</td>
+    <td>{{formatServiceFee [service fee]}}</td>
+    <td>{{country}}</td>
+    <td>{{[availability 365]}}</td>
+
+    {{#if images.[0]}}
+      <td><img src="{{images.[0]}}" alt="{{NAME}}" width="120" height="90" /></td>
+    {{else}}
+      <td><span>No Image</span></td>
+    {{/if}}
+  </tr>
+{{/each}}
+
+
+  {{!-- {{#each listings}}
+    {{#if [service fee]}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{NAME}}</td>
+        <td>{{[host name]}}</td>
+        <td>{{neighbourhood}}</td>
+        <td>{{property_type}}</td>
+        <td>{{[room type]}}</td>
+        <td>{{price}}</td>
+        <td>{{[service fee]}}</td>
+        <td>{{country}}</td>
+        <td>{{[availability 365]}}</td>
+
+        {{#if images.[0]}}
+          <td><img src="{{images.[0]}}" alt="{{NAME}}" width="120" height="90" /></td>
+        {{else}}
+          <td><span>No Image</span></td>
+        {{/if}}
+      </tr>
+    {{/if}}
+  {{/each}} --}}
+</table>

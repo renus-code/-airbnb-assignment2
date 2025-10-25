@@ -1,0 +1,17 @@
+{
+  "name": "asn2-renuupendra",
+  "version": "1.0.0",
+  "description": "This is the assignment2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Renuupendra Sulthan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "express-validator": "^7.2.1"
+  }
+}
