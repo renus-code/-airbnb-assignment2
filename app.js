@@ -100,7 +100,10 @@ app.get("/", (req, res) => {
 });
 
 // Route: Display first 20 listings data
-app.get("/allData", (req, res) => {
+app.get("/allData", async (req, res) => {
+  // Load Airbnb data
+  const airbnb_json = await getAirbnbData();
+
   // Take only the first 20 listings for faster rendering
   const limitedData = airbnb_json.slice(0, 20);
 
@@ -141,7 +144,7 @@ app.post(
       .trim()
       .escape(),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -152,6 +155,7 @@ app.post(
     }
 
     const id = req.body.property_id;
+    const airbnb_json = await getAirbnbData();
     const record = airbnb_json.find((item) => item.id === id);
 
     if (!record) {
