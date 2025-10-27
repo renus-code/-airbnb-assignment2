@@ -27,29 +27,12 @@ let airbnb_json = JSON.parse(myData);
 */
 
 // ---------------------------- LOAD JSON DATA FROM FILEBASE ----------------------------
-let airbnb_json = [];
-
-async function loadData() {
+async function getAirbnbData() {
   const url =
     "https://thoughtless-amaranth-scallop.myfilebase.com/ipfs/QmWuoZ7UW4aBCkUEykCQ8i6G7JFzLbE3S85f2VvYTjxi7y";
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-
-    airbnb_json = data;
-    console.log(`Loaded ${data.length} records from Filebase`);
-  } catch (err) {
-    console.error("Failed to fetch data from Filebase:", err.message);
-    airbnb_json = [];
-  }
+  const response = await fetch(url);
+  return await response.json();
 }
-
-// Load data once when the app starts
-loadData().then(() => {
-  console.log("Airbnb data loaded successfully.");
-});
 
 // ---------------------------- VIEW ENGINE SETUP ----------------------------
 
@@ -134,7 +117,9 @@ app.get("/about", (req, res) => {
 });
 
 // Route: Display one invoice/property by ID
-app.get("/allData/invoiceID/:index", (req, res) => {
+app.get("/allData/invoiceID/:index", async (req, res) => {
+  const airbnb_json = await getAirbnbData();
+
   const record = airbnb_json[req.params.index];
   res.render("id_search_result", { title: "Property Detail", record });
 });
@@ -200,7 +185,7 @@ app.post(
       .trim()
       .escape(),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
 
     // If validation fails
@@ -214,6 +199,8 @@ app.post(
     const searchName = req.body.name.trim().toLowerCase();
 
     // Perform case-insensitive partial match
+    const airbnb_json = await getAirbnbData();
+
     const matchedProperties = airbnb_json.filter(
       (item) => item.NAME && item.NAME.toLowerCase().includes(searchName)
     );
@@ -236,15 +223,19 @@ app.post(
 );
 
 // Route: View all data
-app.get("/viewData", (req, res) => {
+app.get("/viewData", async (req, res) => {
+  const airbnb_json = await getAirbnbData();
+
   res.render("viewData", {
     title: "All Airbnb Data",
-    listings: airbnb_json, // Pass all listings to the view
+    listings: airbnb_json.slice(0, 100),
   });
 });
 
 // Route: View all clean data
-app.get("/viewData/clean/", (req, res) => {
+app.get("/viewData/clean/", async (req, res) => {
+  const airbnb_json = await getAirbnbData();
+
   res.render("viewData_clean", {
     title: "All Airbnb Data(cleaned)",
     listings: airbnb_json, // Pass all listings to the view
@@ -277,7 +268,7 @@ app.post(
       .trim()
       .escape(),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
 
     // Validation errors
@@ -290,6 +281,7 @@ app.post(
 
     const min = parseFloat(req.body.minPrice);
     const max = parseFloat(req.body.maxPrice);
+    const airbnb_json = await getAirbnbData();
 
     // Filter matching listings
     const filteredListings = airbnb_json.filter((item) => {
