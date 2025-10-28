@@ -26,12 +26,22 @@ let myData = fs.readFileSync(
 let airbnb_json = JSON.parse(myData);
 */
 
-// ---------------------------- LOAD JSON DATA FROM FILEBASE ----------------------------
+// ---------------------------- Load airbnb from jsdelivr cdn ----------------------------
+
 async function getAirbnbData() {
-  const url =
-    "https://thoughtless-amaranth-scallop.myfilebase.com/ipfs/QmWuoZ7UW4aBCkUEykCQ8i6G7JFzLbE3S85f2VvYTjxi7y";
-  const response = await fetch(url);
-  return await response.json();
+  const base = "https://cdn.jsdelivr.net/gh/renus-code/airbnb-json-host/";
+  const indexUrl = base + "index.json";
+
+  // Fetch index file
+  const index = await (await fetch(indexUrl)).json();
+
+  // Load all part files in parallel
+  const parts = await Promise.all(
+    index.parts.map((file) => fetch(base + file).then((r) => r.json()))
+  );
+
+  // Merge all arrays into one dataset
+  return parts.flat();
 }
 
 // ---------------------------- VIEW ENGINE SETUP ----------------------------
