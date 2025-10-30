@@ -1,3 +1,18 @@
+/******************************************************************************
+ ***
+ * ITE5315 – Assignment 2
+ * I declare that this assignment is my own work in accordance with Humber Academic Policy.
+ * No part of this assignment has been copied manually or electronically from any other source
+ * (including web sites) or distributed to other students.
+ *
+ * Name: Renuupendra Sulthan
+ * Student ID: N01662821
+ * Date: 2025-10-29
+ *
+ *
+ ******************************************************************************
+ **/
+
 // Import core modules and dependencies
 const express = require("express"); // Import the Express framework to build the web application
 const path = require("path"); // Node.js module for handling and transforming file paths
